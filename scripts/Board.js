@@ -5,6 +5,8 @@ class Board {
         this.canvasHeight = canvasHeight;
         this.tileSize = tileSize;
         this.numberOfTiles = numberOfTiles;
+
+        this.drawBoard();
     }
 
     drawBoard() {

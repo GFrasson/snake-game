@@ -31,7 +31,7 @@ class Snake {
         this.tileSize = tileSize;
         this.apple = apple;
 
-        // this.drawSnake();
+        this.drawSnake();
         this.moveListener();
     }
 
@@ -74,11 +74,14 @@ class Snake {
             y: newHeadY
         });
 
+        this.drawSnakeSquare(newHeadX, newHeadY);
+
         // Checking if ate food
         if (newHeadX === this.apple.x && newHeadY === this.apple.y) {
             this.apple.randomizePositions();
         } else {
-            this.snakeBody.shift();
+            const tail = this.snakeBody.shift();
+            this.clearSnakeSquare(tail.x, tail.y);
         }
     }
 
@@ -95,6 +98,20 @@ class Snake {
 
         this.ctx.beginPath();
         this.ctx.fillStyle = '#555555';
+        this.ctx.fillRect(
+            x * this.tileSize + strokeSize / 2, 
+            y * this.tileSize + strokeSize / 2, 
+            this.tileSize - strokeSize, 
+            this.tileSize - strokeSize
+        );
+        this.ctx.closePath();
+    }
+
+    clearSnakeSquare(x, y) {
+        const strokeSize = 2;
+
+        this.ctx.beginPath();
+        this.ctx.fillStyle = '#242424';
         this.ctx.fillRect(
             x * this.tileSize + strokeSize / 2, 
             y * this.tileSize + strokeSize / 2, 

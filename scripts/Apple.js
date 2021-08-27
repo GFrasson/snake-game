@@ -6,6 +6,8 @@ class Apple {
         this.x = 0;
         this.y = 0;
         this.randomizePositions();
+
+        this.drawApple();
     }
 
     randomizePositions() {

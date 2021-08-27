@@ -11,16 +11,16 @@ class Game {
         this.apple = new Apple(this.ctx, tileSize, numberOfTiles);
         this.snake = new Snake(this.ctx, tileSize, this.apple);
 
-        this.runGame();
+        // this.runGame();
     }
 
     runGame() {
-        const intervalInMiliseconds = 60;
+        const intervalInMiliseconds = 30;
         setInterval(() => {
             this.snake.updateSnake();
-            this.board.drawBoard();
+            // this.board.drawBoard();
             this.apple.drawApple();
-            this.snake.drawSnake();
+            // this.snake.drawSnake();
         }, intervalInMiliseconds);
     }
 }
