@@ -1,7 +1,6 @@
 class Apple {
-    constructor(context, tileSize, numberOfTiles) {
-        this.ctx = context;
-        this.tileSize = tileSize;
+    constructor(canvasDraw, numberOfTiles) {
+        this.canvasDraw = canvasDraw;
         this.numberOfTiles = numberOfTiles;
         this.x = 0;
         this.y = 0;
@@ -16,16 +15,6 @@ class Apple {
     }
 
     drawApple() {
-        const strokeSize = 2;
-
-        this.ctx.beginPath();
-        this.ctx.fillStyle = '#990000';
-        this.ctx.fillRect(
-            this.x * this.tileSize + strokeSize / 2, 
-            this.y * this.tileSize + strokeSize / 2, 
-            this.tileSize - strokeSize, 
-            this.tileSize - strokeSize
-        );
-        this.ctx.closePath();
+        this.canvasDraw.drawSquare(this.x, this.y, "#990000");
     }
 }

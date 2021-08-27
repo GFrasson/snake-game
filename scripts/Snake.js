@@ -18,17 +18,17 @@ class Snake {
     //     }
     // });
 
-    constructor(context, tileSize, apple) {
-        this.ctx = context;
+    constructor(canvasDraw, numberOfTiles, apple) {
+        this.canvasDraw = canvasDraw;
+        this.numberOfTiles = numberOfTiles;
 
         this.xSpeed = 1;
         this.ySpeed = 0;
         this.snakeBody = [{
-            x: 14,
-            y: 14
+            x: Math.floor(this.numberOfTiles / 2),
+            y: Math.floor(this.numberOfTiles / 2)
         }];
 
-        this.tileSize = tileSize;
         this.apple = apple;
 
         this.drawSnake();
@@ -79,6 +79,7 @@ class Snake {
         // Checking if ate food
         if (newHeadX === this.apple.x && newHeadY === this.apple.y) {
             this.apple.randomizePositions();
+            this.apple.drawApple();
         } else {
             const tail = this.snakeBody.shift();
             this.clearSnakeSquare(tail.x, tail.y);
@@ -86,38 +87,16 @@ class Snake {
     }
 
     drawSnake() {
-        // this.drawSnakeSquare(this.xHead, this.yHead);
-
         for (let i = 0; i < this.snakeBody.length; i++) {
             this.drawSnakeSquare(this.snakeBody[i].x, this.snakeBody[i].y);
         }
     }
 
     drawSnakeSquare(x, y) {
-        const strokeSize = 2;
-
-        this.ctx.beginPath();
-        this.ctx.fillStyle = '#555555';
-        this.ctx.fillRect(
-            x * this.tileSize + strokeSize / 2, 
-            y * this.tileSize + strokeSize / 2, 
-            this.tileSize - strokeSize, 
-            this.tileSize - strokeSize
-        );
-        this.ctx.closePath();
+        this.canvasDraw.drawSquare(x, y, "#555555");
     }
 
     clearSnakeSquare(x, y) {
-        const strokeSize = 2;
-
-        this.ctx.beginPath();
-        this.ctx.fillStyle = '#242424';
-        this.ctx.fillRect(
-            x * this.tileSize + strokeSize / 2, 
-            y * this.tileSize + strokeSize / 2, 
-            this.tileSize - strokeSize, 
-            this.tileSize - strokeSize
-        );
-        this.ctx.closePath();
+        this.canvasDraw.drawSquare(x, y, "#242424");
     }
 }

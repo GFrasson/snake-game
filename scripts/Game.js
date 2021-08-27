@@ -1,27 +1,21 @@
 class Game {
     constructor() {
+        this.numberOfTiles = 30;
         this.points = 0;
-        this.canvas = document.querySelector("#game");
-        this.ctx = this.canvas.getContext("2d");
+        this.intervalInMiliseconds = 50;
 
-        const numberOfTiles = 30;
-        const tileSize = this.canvas.width / numberOfTiles;
+        this.canvasDraw = new CanvasDraw(this.numberOfTiles);
+        this.board = new Board(this.canvasDraw);
+        this.apple = new Apple(this.canvasDraw, this.numberOfTiles);
+        this.snake = new Snake(this.canvasDraw, this.numberOfTiles, this.apple);
 
-        this.board = new Board(this.ctx, this.canvas.width, this.canvas.height, tileSize, numberOfTiles);
-        this.apple = new Apple(this.ctx, tileSize, numberOfTiles);
-        this.snake = new Snake(this.ctx, tileSize, this.apple);
-
-        // this.runGame();
+        this.startGame();
     }
 
-    runGame() {
-        const intervalInMiliseconds = 30;
+    startGame() {
         setInterval(() => {
             this.snake.updateSnake();
-            // this.board.drawBoard();
-            this.apple.drawApple();
-            // this.snake.drawSnake();
-        }, intervalInMiliseconds);
+        }, this.intervalInMiliseconds);
     }
 }
 
