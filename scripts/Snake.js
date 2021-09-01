@@ -1,33 +1,38 @@
 class Snake {
-    // acceptedMoves = Object.freeze({
-    //     ArrowUp() {
-    //         console.log('up');
-    //         this.move(0, 1);
-    //     },
-    //     ArrowRight() {
-    //         console.log('right');
-    //         this.move(1, 0);
-    //     },
-    //     ArrowDown() {
-    //         console.log('down');
-    //         this.move(0, -1);
-    //     },
-    //     ArrowLeft() {
-    //         console.log('left');
-    //         this.move(-1, 0);
-    //     }
-    // });
+    acceptedMoves = Object.freeze({
+        "ArrowUp": () => {
+            this.changeDirection(0, -1);
+        },
+        "ArrowRight": () => {
+            this.changeDirection(1, 0);
+        },
+        "ArrowDown": () => {
+            this.changeDirection(0, 1);
+        },
+        "ArrowLeft": () => {
+            this.changeDirection(-1, 0);
+        }
+    });
 
     constructor(canvasDraw, numberOfTiles, apple) {
         this.canvasDraw = canvasDraw;
         this.numberOfTiles = numberOfTiles;
 
+        this.alive = true;
         this.xSpeed = 1;
         this.ySpeed = 0;
+        this.changeDirectionQueue = [];
         this.snakeBody = [{
             x: Math.floor(this.numberOfTiles / 2),
             y: Math.floor(this.numberOfTiles / 2)
         }];
+
+        // this.snakeBody = [];
+        // for (let i = 0; i < 30; i++) {
+        //     for (let j = 0; j < 28; j++) {
+        //         this.snakeBody.push({x: i,y: j});
+        //     }
+        // }
 
         this.apple = apple;
 
@@ -39,25 +44,15 @@ class Snake {
         document.addEventListener('keydown', (event) => {
             const keyPressed = event.key;
 
-            // const moveFunction = this.acceptedMoves[keyPressed];
-
-            // if (moveFunction) {
-            //     moveFunction();
-            // }
-
-            if (keyPressed === 'ArrowUp') {
-                this.move(0, -1);
-            } else if (keyPressed === 'ArrowRight') {
-                this.move(1, 0);
-            } else if (keyPressed === 'ArrowDown') {
-                this.move(0, 1);
-            } else if (keyPressed === 'ArrowLeft') {
-                this.move(-1, 0);
+            if (this.acceptedMoves.hasOwnProperty(keyPressed)) {
+                if (this.changeDirectionQueue.length < 2) {
+                    this.changeDirectionQueue.push(this.acceptedMoves[keyPressed]);
+                }
             }
         });
     }
 
-    move(xSpeed, ySpeed) {
+    changeDirection(xSpeed, ySpeed) {
         if (-xSpeed !== this.xSpeed && -ySpeed !== this.ySpeed) {
             this.xSpeed = xSpeed;
             this.ySpeed = ySpeed;
@@ -65,25 +60,47 @@ class Snake {
     }
 
     updateSnake() {
+        if (this.changeDirectionQueue.length > 0) {
+            const changeDirectionFunction = this.changeDirectionQueue.shift();
+            changeDirectionFunction();
+        }
+
         const head = this.snakeBody[this.snakeBody.length - 1];
         const newHeadX = head.x + this.xSpeed;
         const newHeadY = head.y + this.ySpeed;
 
-        this.snakeBody.push({
-            x: newHeadX,
-            y: newHeadY
-        });
-
-        this.drawSnakeSquare(newHeadX, newHeadY);
-
-        // Checking if ate food
-        if (newHeadX === this.apple.x && newHeadY === this.apple.y) {
-            this.apple.randomizePositions();
-            this.apple.drawApple();
+        // Checking if died
+        if (newHeadX >= this.numberOfTiles || newHeadX < 0 || newHeadY >= this.numberOfTiles || newHeadY < 0) {
+            this.alive = false;
         } else {
-            const tail = this.snakeBody.shift();
-            this.clearSnakeSquare(tail.x, tail.y);
+            for (let i = 0; i < this.snakeBody.length; i++) {
+                if (this.snakeBody[i].x == newHeadX && this.snakeBody[i].y == newHeadY) {
+                    this.alive = false;
+                    break;
+                }
+            }
         }
+
+        if (this.alive) {
+            this.snakeBody.push({
+                x: newHeadX,
+                y: newHeadY
+            });
+    
+            this.drawSnakeSquare(newHeadX, newHeadY);
+    
+            // Checking if ate apple
+            if (newHeadX === this.apple.x && newHeadY === this.apple.y) {
+                this.eatApple();
+            } else {
+                const tail = this.snakeBody.shift();
+                this.clearSnakeSquare(tail.x, tail.y);
+            }
+        }
+    }
+
+    eatApple() {
+        this.apple.eaten = true;
     }
 
     drawSnake() {
