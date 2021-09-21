@@ -27,13 +27,6 @@ class Snake {
             y: Math.floor(this.numberOfTiles / 2)
         }];
 
-        // this.snakeBody = [];
-        // for (let i = 0; i < 30; i++) {
-        //     for (let j = 0; j < 28; j++) {
-        //         this.snakeBody.push({x: i,y: j});
-        //     }
-        // }
-
         this.apple = apple;
 
         this.drawSnake();
