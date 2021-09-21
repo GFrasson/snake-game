@@ -5,16 +5,66 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Spartan&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./styles.css">
+    
     <title>Snake Game</title>
 </head>
 <body>
-    <canvas id="game" width="600" height="600"></canvas>
+    <div id="starting-screen">
+        <h1 class="game-title">Snake Game</h1>
 
+        <div id="configurations">
+            <div id="difficulty">
+                <label class="difficulty-option" for="easy">Easy
+                    <input class="difficulty-selection" type="radio" name="easy" id="easy" value="EASY" checked>
+                    <span class="checkmark"></span>
+                </label>
+
+                <label class="difficulty-option" for="medium">Medium
+                    <input class="difficulty-selection" type="radio" name="medium" id="medium" value="MEDIUM">
+                    <span class="checkmark"></span>
+                </label>
+
+                <label class="difficulty-option" for="hard">Hard
+                    <input class="difficulty-selection" type="radio" name="hard" id="hard" value="HARD">
+                    <span class="checkmark"></span>
+                </label>
+
+                <label class="difficulty-option" for="expert">Expert
+                    <input class="difficulty-selection" type="radio" name="expert" id="expert" value="EXPERT">
+                    <span class="checkmark"></span>
+                </label>
+            </div>
+        </div>
+
+        <button class="start-game" onclick="startGame();">Start</button>
+    </div>
+    
+    <div class="game-container">
+        <div class="scoreboard">
+            <div class="score">
+                Score: <span id="score">0</span>
+            </div>
+            <div class="highest-score">
+                Highest Score: <span id="highest-score">0</span>
+            </div>
+        </div>
+
+        <canvas id="game" width="600" height="600"></canvas>
+
+        <button id="restart-game" onclick="restartGame();">Restart</button>
+        <button id="quit-game" onclick="quitGame();">Quit</button>
+    </div>
+    
+    <script src="./scripts/page-effects.js"></script>
     <script src="./scripts/CanvasDraw.js"></script>
     <script src="./scripts/Board.js"></script>
     <script src="./scripts/Apple.js"></script>
     <script src="./scripts/Snake.js"></script>
     <script src="./scripts/Game.js"></script>
+    <script src="./scripts/executable.js"></script>
 </body>
 </html>
