@@ -1,8 +1,6 @@
-const newGame = new Game();
+const game = new Game();
 
 function startGame() {
-    const startingScreen = document.querySelector("#starting-screen");
-    const gameContainer = document.querySelector(".game-container");
     const difficulty = document.querySelector("#difficulty");
     const difficultySelection = difficulty.querySelectorAll('.difficulty-selection');
     let chosenDifficulty = 'EASY';
@@ -14,8 +12,53 @@ function startGame() {
         }
     }
 
-    startingScreen.style.display = 'none';
-    gameContainer.style.display = 'inline-block';
+    hideStartingScreen();
+    showGameContainer();
 
-    newGame.startGame(chosenDifficulty);
+    game.startGame(chosenDifficulty);
 }
+
+function restartGame() {
+    hideGameOverScreen();
+    resetScore();
+    game.restartGame();
+}
+
+function quitGame() {
+    hideGameOverScreen();
+    hideGameContainer();
+    showStartingScreen();
+    resetScore();
+    game.quitGame();
+}
+
+function resetScore() {
+    const score = document.querySelector('#score');
+    score.innerHTML = 0;
+}
+
+function hideGameOverScreen() {
+    const gameOverScreen = document.querySelector('#game-over-screen');
+    gameOverScreen.style.display = 'none';
+}
+
+function showGameContainer() {
+    const gameContainer = document.querySelector(".game-container");
+    gameContainer.style.display = 'inline-block';
+}
+
+function hideGameContainer() {
+    const gameContainer = document.querySelector(".game-container");
+    gameContainer.style.display = 'none';
+}
+
+function showStartingScreen() {
+    const startingScreen = document.querySelector("#starting-screen");
+    startingScreen.style.display = 'flex';
+}
+
+function hideStartingScreen() {
+    const startingScreen = document.querySelector("#starting-screen");
+    startingScreen.style.display = 'none';
+}
+

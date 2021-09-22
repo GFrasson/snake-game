@@ -54,9 +54,16 @@
         </div>
 
         <canvas id="game" width="600" height="600"></canvas>
+    </div>
 
-        <button id="restart-game" onclick="restartGame();">Restart</button>
-        <button id="quit-game" onclick="quitGame();">Quit</button>
+    <div id="game-over-screen">
+        <div class="game-over-content">
+            <h1 class="game-over-title">Game Over</h1>
+            <div class="buttons-container">
+                <button id="restart-game" onclick="restartGame();">Restart</button>
+                <button id="quit-game" onclick="quitGame();">Quit</button>
+            </div>
+        </div>
     </div>
     
     <script src="./scripts/page-effects.js"></script>

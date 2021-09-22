@@ -19,22 +19,30 @@ class Game {
     });
 
     constructor() {
+        this.difficulty = null;
         this.score = 0;
         this.highestScore = 0;
+        
+        const localStorageHighestScore = localStorage.getItem('snakeGameHighestScore');
+        if (Number(localStorageHighestScore)) {
+            this.highestScore = Number(localStorageHighestScore);
+        }
 
         this.scoreHTML = document.querySelector('#score');
         this.highestScoreHTML = document.querySelector('#highest-score');
+        this.highestScoreHTML.innerHTML = this.highestScore;
     }
 
     startGame(difficulty) {
         // Difficulty configurations
         if (this.difficultiesConfigurations.hasOwnProperty(difficulty)) {
-            this.numberOfTiles = this.difficultiesConfigurations[difficulty].numberOfTiles;
-            this.intervalInMiliseconds = this.difficultiesConfigurations[difficulty].intervalInMiliseconds;
+            this.difficulty = difficulty;
         } else {
-            this.numberOfTiles = this.difficultiesConfigurations.EASY.numberOfTiles;
-            this.intervalInMiliseconds = this.difficultiesConfigurations.EASY.intervalInMiliseconds;
+            this.difficulty = 'EASY';
         }
+        
+        this.numberOfTiles = this.difficultiesConfigurations[this.difficulty].numberOfTiles;
+        this.intervalInMiliseconds = this.difficultiesConfigurations[this.difficulty].intervalInMiliseconds;
 
         // Instances
         this.canvasDraw = new CanvasDraw(this.numberOfTiles);
@@ -67,9 +75,18 @@ class Game {
 
     endGame() {
         clearInterval(this.gameInterval);
-        this.score = 0;
+        localStorage.setItem('snakeGameHighestScore', this.highestScore);
 
-        // const restartGameButton = document.querySelector('#restart-game');
-        // restartGameButton.style.display = 'inline';       
+        const gameOverScreen = document.querySelector('#game-over-screen');
+        gameOverScreen.style.display = 'flex';
+    }
+
+    restartGame() {
+        this.score = 0;
+        this.startGame(this.difficulty);
+    }
+
+    quitGame() {
+        this.score = 0;
     }
 }

@@ -16,6 +16,25 @@ body {
     font-family: 'Spartan', sans-serif;
 }
 
+button {
+    margin-top: 1rem;
+    width: 7.6rem;
+    height: 2.5rem;
+
+    font-size: 1rem;
+    text-transform: uppercase;
+    cursor: pointer;
+    color: #FFFFFF;
+    background: rgba(255, 255, 255, 0.12);
+    border: 2px solid rgba(255, 255, 255, 0.18);
+
+    transition: background 0.2s;
+}
+
+button:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
 #starting-screen {
     display: flex;
     flex-direction: column;
@@ -32,7 +51,8 @@ body {
     border: 1px solid rgba(255, 255, 255, 0.18);
 }
 
-#starting-screen .game-title {
+#starting-screen .game-title,
+#game-over-screen .game-over-content .game-over-title {
     color: #FFFFFF;
     text-transform: uppercase;
     font-size: 2.5rem;
@@ -159,27 +179,9 @@ body {
     background-color: rgba(255, 255, 255, 0.5);
 }
 
-#starting-screen .start-game {
-    margin-top: 1rem;
-    width: 7.6rem;
-    height: 2.5rem;
-
-    font-size: 1rem;
-    text-transform: uppercase;
-    cursor: pointer;
-    color: #FFFFFF;
-    background: rgba(255, 255, 255, 0.12);
-    border: 2px solid rgba(255, 255, 255, 0.18);
-
-    transition: background 0.2s;
-}
-
-#starting-screen .start-game:hover {
-    background: rgba(255, 255, 255, 0.3);
-}
-
 .game-container {
     display: none;
+    position: relative;
 }
 
 .game-container .scoreboard {
@@ -188,4 +190,42 @@ body {
     justify-content: space-between;
     align-items: center;
     margin-bottom: 0.4rem;
+}
+
+#game-over-screen {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+    position: fixed;
+
+    width: 100%;
+    height: 100%;
+}
+
+#game-over-screen .game-over-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    width: 40%;
+    height: 50%;
+    background: rgba(255, 255, 255, 0.20);
+    backdrop-filter: blur(3.5px);
+    -webkit-backdrop-filter: blur(3.5px);
+    border-radius: 0.6rem;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+#game-over-screen .game-over-content .buttons-container {
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#game-over-screen .game-over-content .buttons-container #restart-game {
+    margin-right: 1rem;
 }
