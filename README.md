@@ -1,13 +1,17 @@
 # 🐍 Snake Game 🐍 
-_A simple and fun snake game made with javascript!_
+*A simple and fun snake game made with javascript!*
 
- - The game has **4 levels** of difficulty (easy, medium, hard and expert) and you can [play here!](https://gfrasson.github.io/snake-game/)
+<p>The game has <strong>4 levels</strong> of difficulty (easy, medium, hard and expert) and you can <a href="https://gfrasson.github.io/snake-game/" target="_blank">play here!</a></p>
 
- - It has a friendly **main screen** where you can choose the difficulty to play!
-<img width="40em" height="40em" scr="./assets/game-preview/main-screen.png">
+<p>It has a friendly <strong>main screen</strong> where you can choose the difficulty to play!</p>
+<img align="center" width="60%" height="auto" src="./assets/game-preview/main-screen.png">
 
- - The game itself is composed by a square **board** with different sizes depending on the difficulty from 10x10 (easy) to 30x30 (expert).
-<img width="40em" height="40em" scr="./assets/game-preview/game-screen.png">
+<hr>
 
- - You can play as long as the snake doesn't hit its own body or the walls! If the snake dies, a **game over** screen appears so you can restart the game!
- <img width="40em" height="40em" scr="./assets/game-preview/game-over-screen.png">
+<p>The game itself is composed by a square <strong>board</strong> with different sizes depending on the difficulty from 10x10 (easy) to 30x30 (expert).</p>
+<img width="60%" height="auto" src="./assets/game-preview/game-screen.png">
+
+<hr>
+
+<p>You can play as long as the snake doesn't hit its own body or the walls! If the snake dies, a <strong>game over</strong> screen appears so you can restart the game!</p>
+<img width="60%" height="auto" src="./assets/game-preview/game-over-screen.png">
